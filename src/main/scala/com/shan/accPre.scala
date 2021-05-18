@@ -2,8 +2,9 @@ package com.shan
 
 import org.apache.spark.{SparkConf, SparkContext}
 
-object accPre {
-  class acctPre {
+//TODO:利用scala语言开发spark入门程序（提交到spark集群中运行）
+object accPre_Online {
+
     def main(args: Array[String]): Unit = {
       if (args.length < 1) {
         System.err.print("Usage: com.shan.acctPre <logfile>")
@@ -11,7 +12,9 @@ object accPre {
       }
 
       //TODO: complete exercise
-      val sconf = new SparkConf().setAppName("acctPre")
+      //1. 构建SparkConf对象，设置application的名称
+      val sconf = new SparkConf().setAppName("acctPre_Online")
+      //2. 构建SparkContext对象，该对象非常重要，它是所有spark程序的执行入口
       val sc = new SparkContext(sconf)
       sc.setLogLevel("WARN")
 
@@ -21,5 +24,5 @@ object accPre {
 
       sc.stop()
     }
-  }
+
 }

@@ -6,10 +6,10 @@
       <option name="featureWarnings" value="true" />
       <parameters>
         <parameter value="-dependencyfile" />
-        <parameter value="$PROJECT_DIR$/target/.scala_dependencies" />
+        <parameter value="C:\Users\shan\IdeaProjects\clouderaCCA\target/.scala_dependencies" />
       </parameters>
       <plugins>
-        <plugin path="$USER_HOME$/workspace/env/maven/repository/com/artima/supersafe/supersafe_2.13.5/1.1.12/supersafe_2.13.5-1.1.12.jar" />
+        <plugin path="C:\Users\shan\.m2\repository\com\artima\supersafe\supersafe_2.13.5\1.1.12\supersafe_2.13.5-1.1.12.jar" />
       </plugins>
     </profile>
   </component>
