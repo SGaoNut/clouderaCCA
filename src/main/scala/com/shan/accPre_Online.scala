@@ -6,10 +6,10 @@ import org.apache.spark.{SparkConf, SparkContext}
 object accPre_Online {
 
   def main(args: Array[String]): Unit = {
-//    if (args.length < 1) {
-//      System.err.print("Usage: com.shan.acctPre <logfile>")
-//      System.exit(1)
-//    }
+    if (args.length < 1) {
+      System.err.print("Usage: com.shan.acctPre <logfile>")
+      System.exit(1)
+    }
 
     //TODO: complete exercise
     //1. 构建SparkConf对象，设置application的名称
@@ -18,9 +18,9 @@ object accPre_Online {
     val sc = new SparkContext(sparkConf)
     sc.setLogLevel("WARN")
 
-    val acct = sc.textFile(args(0))
+    val acct = sc.textFile("/loudacre/accounts")
     val res = acct.map(_.split(",")).filter(ar => ar(7) == "CA").map(ar => (ar(7) + ":" + ar(6), (1, ar(3).length))).reduceByKey((v1, v2) => (v1._1 + v2._1, v1._2 + v2._2)).map { case (city, (acnum, nlen)) => (city + "|" + acnum + "|" + nlen) }
-    res.saveAsTextFile(args(1))
+    res.saveAsTextFile("/loudacre/problem1/solution")
 
     sc.stop()
   }
