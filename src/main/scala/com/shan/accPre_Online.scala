@@ -18,9 +18,12 @@ object accPre_Online {
     val sc = new SparkContext(sparkConf)
     sc.setLogLevel("WARN")
 
-    val acct = sc.textFile("/loudacre/accounts")
-    val res = acct.map(_.split(",")).filter(ar => ar(7) == "CA").map(ar => (ar(7) + ":" + ar(6), (1, ar(3).length))).reduceByKey((v1, v2) => (v1._1 + v2._1, v1._2 + v2._2)).map { case (city, (acnum, nlen)) => (city + "|" + acnum + "|" + nlen) }
-    res.saveAsTextFile("/loudacre/problem1/solution")
+    val acct = sc.textFile(args(0))
+    val res = acct.map(_.split(",")).filter(ar => ar(7) == "CA")
+    val res1 = res.map(ar => (ar(7)+":"+ar(6),(1,ar(3).length))).reduceByKey((v1,v2) => (v1._1+v2._1,v1._2+v2._2))
+    val res2 = res1.map{case (city, (acnum, nmlen)) => city+"|"+acnum+"|"+nmlen}
+
+    res2.saveAsTextFile(args(1))
 
     sc.stop()
   }
