@@ -25,7 +25,7 @@ object q2Solu {
     val acct_wlog = acct1.join(wlog1).map{case (id,((fname, lname),ip_addr)) => (ip_addr,lname,fname)}
     val sparkSession = SparkSession.builder().appName("q2Solu").master("local").enableHiveSupport().getOrCreate()
     import sparkSession.implicits._
-    val res = acct_wlog.toDF("ip_addr,lname,fname")
+    val res = acct_wlog.toDF("ip_addr","lname","fname")
     res.write.orc("hdfs://localhost:8020/loudacre/problem2/solution/orc")
 //    res.write.avro("hdfs://localhost:8020/loudacre/problem2/solution/avro")
 
