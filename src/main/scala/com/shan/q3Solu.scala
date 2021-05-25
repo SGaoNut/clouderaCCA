@@ -1,7 +1,8 @@
 package com.shan
 
-import org.apache.spark.sql.hive.
+import org.apache.spark.sql.SparkSession
 import org.apache.spark.{SparkConf, SparkContext}
+
 
 object q3Solu {
   def main(args: Array[String]): Unit = {
@@ -10,18 +11,21 @@ object q3Solu {
     //      System.exit(1)
     //    }
 
-    //TODO: complete exercise
-    //1. 构建SparkConf对象，设置application的名称
-    val sparkConf = new SparkConf().setAppName("q3Solu").setMaster("local[2]")
-    //2. 构建SparkContext对象，该对象非常重要，它是所有spark程序的执行入口
-    val sc = new SparkContext(sparkConf)
-    sc.setLogLevel("WARN")
 
-    val hivec = new HiveContext
+    val spark = SparkSession
+      .builder()
+      .appName("q3Solu")
+      .master("local")
+      .config("spark.some.config.option", "some-value")
+      .getOrCreate()
 
+    // For implicit conversions like converting RDDs to DataFrames
+        import spark.implicits._
 
-
-
+    val zcodeDF = spark.read.json("/loudacre/problem3/input")
+    val zcodeCA = zcodeDF.where("state = 'CA'").select("zip","city")
+    zcodeCA.write.parquet("loudacre/problem3/solution")
+    zcodeCA.write.saveAsTable("problem3.solution")
 
   }
 }
