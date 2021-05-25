@@ -13,7 +13,7 @@ object q2Solu {
 
     //TODO: complete exercise
     //1. 构建SparkConf对象，设置application的名称
-    val sparkConf = new SparkConf().setAppName("acctPre_Online").setMaster("local[2]")
+    val sparkConf = new SparkConf().setAppName("q2Solu").setMaster("local[2]")
     //2. 构建SparkContext对象，该对象非常重要，它是所有spark程序的执行入口
     val sc = new SparkContext(sparkConf)
     sc.setLogLevel("WARN")
